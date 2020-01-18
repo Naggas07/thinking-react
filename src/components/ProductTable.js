@@ -3,7 +3,7 @@ import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
 
 const ProductTable = ({products, inStockOnly, filterText}) => {
-    console.info('Products => ', products)
+
   return (
     <table>
       <thead>
@@ -14,7 +14,11 @@ const ProductTable = ({products, inStockOnly, filterText}) => {
       </thead>
       <tbody>
         <ProductCategoryRow />
-        {products.map(product => <ProductRow product={product}/>)}
+        {products.filter(product => product.name.includes(filterText) )
+        .map((product, i) => 
+          <ProductRow product={product}
+          inStockOnly={inStockOnly}
+          key={i}/>)}
       </tbody>
     </table>
   );

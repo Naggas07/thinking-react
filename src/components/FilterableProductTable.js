@@ -1,35 +1,53 @@
-import React, {Component} from 'react';
-import SearchBar from './SearchBar'
-import ProductTable from './ProductTable'
-import Products from '../data.json'
+import React, { Component } from "react";
+import SearchBar from "./SearchBar";
+import ProductTable from "./ProductTable";
+import Products from "../data.json";
 
 class FilterableProductTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            products: [],
-            filterText: 'ball', 
-            inStockOnly: true
-         }
-    }
+  state = {
+    products: [],
+    filterText: "",
+    inStockOnly: false
+  };
 
-    componentDidMount(){
-        this.setState({products: Products})
-    }
+  handelChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+        ...this.state,
+        [name]: value
+    })
+  };
 
-    render() { 
-        return ( 
-            <div>
-                <SearchBar 
-                filterText={this.state.filterText} 
-                inStockOnly={this.state.inStockOnly}/>
-                <ProductTable 
-                products={this.state.products}
-                filterText={this.state.filterText} 
-                inStockOnly={this.state.inStockOnly}/>
-            </div>
-         );
-    }
+  handelCheck = event => {
+      const {name} = event.target
+      const value = this.state[name]
+      this.setState({
+          ...this.state,
+          [name]: !value
+      })
+  }
+
+  componentDidMount() {
+    this.setState({ products: Products });
+  }
+
+  render() {
+    return (
+      <div>
+        <SearchBar
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          handelChange={this.handelChange}
+          handelCheck={this.handelCheck}
+        />
+        <ProductTable
+          products={this.state.products}
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
+      </div>
+    );
+  }
 }
- 
+
 export default FilterableProductTable;

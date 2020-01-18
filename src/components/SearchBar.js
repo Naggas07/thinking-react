@@ -1,36 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-       
-    };
-  }
+ const SearchBar = ({filterText , inStockOnly, handelChange, handelCheck}) => {
 
-
-
-  render() {
     
     return (
       <form>
         <div>
-          <input type="text" placeholder="Search" value={this.props.filterText} name="search"></input>
+          <input type="text" placeholder="Search" value={filterText} onChange={handelChange} name="filterText"></input>
         </div>
         <div>
           <input
             type="checkbox"
             className="form-check-input"
-            name="stock"
+            name="inStockOnly"
             id="stock"
-        
-            checked={this.props.inStockOnly}
+            onChange={handelCheck}
+            checked={inStockOnly}
           ></input>
           <label>Only in stock</label>
         </div>
       </form>
     );
   }
-}
 
 export default SearchBar;
+
+
